@@ -14,6 +14,10 @@ function Home(){
     const {state} = useLocation()
     const {email} = state;
 
+    var myRef = React.createRef();
+
+   
+
     const navigate = useNavigate()
 
     function updateMessages() {
@@ -26,6 +30,9 @@ function Home(){
         })
         console.log(messagesdata)
         setMessages(messagesdata)
+        
+        
+       
     }).catch((e) => {
         console.log('failed to retrieve messages')
     }).then(() => {
@@ -47,6 +54,7 @@ function Home(){
   
     useEffect(() => {
         updateMessages()
+       
     
     }, [])
 
@@ -81,7 +89,10 @@ function Home(){
             <div className="messages">
                 <ul>
                 {messages.map((message)=> {
-                return <li>
+                return <li ref={(e)=>{
+                    e.scrollIntoView();
+
+                }}>
                     
 
                     <div className="card">
@@ -99,13 +110,10 @@ function Home(){
             })}
             </ul>
 
-            <div style={{float:'left', clear: 'both'}} ref={(el)=>{}}></div>
-        </div>
-
         <div className="textBox">
     
 
-        <div class="input-group mb-3">
+        <div class="input-group mb-3" ref ={myRef}>
          
             
             <input onChange={(e) => {
@@ -121,6 +129,7 @@ function Home(){
         </div>
 
 
+        </div>
         </div>
         
     </div>);
