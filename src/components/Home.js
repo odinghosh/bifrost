@@ -6,13 +6,13 @@ import io from "socket.io-client";
 import {useLocation, useNavigate} from "react-router-dom"
 
 
-function Home(){
+function Home(props){
 
     const [messages, setMessages] = useState([])
     const [textVal, setTextVal] = useState([])
 
     const {state} = useLocation()
-    const {email} = state;
+    const {email, socket} = state;
 
     var myRef = React.createRef();
 
@@ -43,10 +43,6 @@ function Home(){
 
     }
 
-   
-
-    const socket = io.connect("https://bifrost-messenger.herokuapp.com/")
-
     socket.on('updateMessages', () => {
         updateMessages()
     
@@ -55,11 +51,10 @@ function Home(){
     
 
   
-    //useEffect(() => {
-      //  updateMessages()
-       
+    useEffect(() => {
+        updateMessages()       
     
-    //}, [])
+    }, [])
 
     function sendMessage(text){
         axios.post('https://bifrost-messenger.herokuapp.com/realms/test', {email:email, text:text})
