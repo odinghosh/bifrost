@@ -18,7 +18,7 @@ function Home(){
 
     function updateMessages() {
 
-        axios.get('http://localhost:5000/realms/test')
+        axios.get('https://bifrost-messenger.herokuapp.com/realms/test')
     .then(function(response){
         var messagesdata = response['data']
         messagesdata.sort((a,b)=>{
@@ -37,7 +37,7 @@ function Home(){
 
     var endRef = React.createRef();
 
-    const socket = io.connect("http://localhost:8000/")
+    const socket = io.connect("https://bifrost-messenger.herokuapp.com/")
 
     socket.on('updateMessages', () => {
         updateMessages()
@@ -51,7 +51,7 @@ function Home(){
     }, [])
 
     function sendMessage(text){
-        axios.post('http://localhost:5000/realms/test', {email:email, text:text})
+        axios.post('https://bifrost-messenger.herokuapp.com/realms/test', {email:email, text:text})
         .then((e)=>{
             console.log(e)
         })

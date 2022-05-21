@@ -44,7 +44,7 @@ function Register() {
             { registered ?
 
             <button onClick={() => {
-              axios.post("http://localhost:5000/signin", {
+              axios.post("https://bifrost-messenger.herokuapp.com/signin", {
                 user: email,
                 pass: pass
               }).then((e) => {
@@ -62,7 +62,7 @@ function Register() {
             }} className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
             :
             <button onClick={()=> {
-              axios.post("http://localhost:5000/register", {
+              axios.post("https://bifrost-messenger.herokuapp.com/register", {
                 user: email,
                 pass: pass
               }).then(() => {
