@@ -1,0 +1,130 @@
+import React, {useState, useEffect} from "react"
+import "bootstrap/dist/css/bootstrap.css"
+import "../css/home.css"
+import axios from 'axios'
+import io from "socket.io-client";
+import {useLocation, useNavigate} from "react-router-dom"
+
+
+function Home(){
+
+    const [messages, setMessages] = useState([])
+    const [textVal, setTextVal] = useState([])
+
+    const {state} = useLocation()
+    const {email} = state;
+
+    const navigate = useNavigate()
+
+    function updateMessages() {
+
+        axios.get('http://localhost:5000/realms/test')
+    .then(function(response){
+        var messagesdata = response['data']
+        messagesdata.sort((a,b)=>{
+            return parseInt(a['time']) - parseInt(b['time'])
+        })
+        console.log(messagesdata)
+        setMessages(messagesdata)
+    }).catch((e) => {
+        console.log('failed to retrieve messages')
+    }).then(() => {
+        console.log("getting data")
+
+    })
+
+    }
+
+    var endRef = React.createRef();
+
+    const socket = io.connect("http://localhost:8000/")
+
+    socket.on('updateMessages', () => {
+        updateMessages()
+    })
+    
+
+  
+    useEffect(() => {
+        updateMessages()
+    
+    }, [])
+
+    function sendMessage(text){
+        axios.post('http://localhost:5000/realms/test', {email:email, text:text})
+        .then((e)=>{
+            console.log(e)
+        })
+        .catch((e) => {
+            console.log(e)
+        })
+    }
+
+
+    return (<div className="wrapper">
+        <div className="sidebar">
+            <ul> 
+                <li className="realm">
+                
+                <a>
+                    <button onClick={
+                        ()=> {
+                            navigate("/", {replace: true})
+                        }
+
+                    } className="btn btn-outline-dark">Back</button>
+                </a>
+                </li>
+                
+            </ul>
+        </div>
+            <div className="messages">
+                <ul>
+                {messages.map((message)=> {
+                return <li>
+                    
+
+                    <div className="card">
+                    <div className="card-header ">
+                        {message.name}
+                    </div>
+                    <div className="card-body">
+                    <blockquote className="blockquote mb-0">
+                    <p>{message.text}</p>
+                    
+                    </blockquote>
+                    </div>
+                    </div>
+                    </li>
+            })}
+            </ul>
+
+            <div style={{float:'left', clear: 'both'}} ref={(el)=>{endRef = el}}></div>
+        </div>
+
+        <div className="textBox">
+    
+
+        <div class="input-group mb-3">
+            
+            <input onChange={(e) => {
+                setTextVal(e.target.value)
+                console.log(e.target.value)
+            }} type="text" value={textVal} class="form-control" placeholder="Enter a message" aria-label="Enter a message" aria-describedby="button-addon2"/>
+            <button onClick={(e)=>{
+                sendMessage(textVal);
+                setTextVal("")
+            }} class="btn btn-outline-dark" type="submit" id="button-addon2">Send</button>
+            
+        </div>
+
+
+        </div>
+        
+    </div>);
+    
+        
+    
+}
+
+export default Home;
