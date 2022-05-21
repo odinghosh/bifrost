@@ -4,6 +4,7 @@ import "../css/register.css"
 import {useNavigate} from "react-router-dom"
 import axios from "axios"
 import io from "socket.io-client";
+import "socket.io-client";
 
 function Register() {
 
@@ -50,12 +51,10 @@ function Register() {
                 pass: pass
               }).then((e) => {
                 var uid = ""
-                uid = e['data']['uid']
-
-                const socket = io.connect("https://bifrost-messenger.herokuapp.com/")
-              
+                uid = e['data']['uid']          
+                
                 if(uid.length > 0){
-                  navigate("../home", {state: {email:email, socket:socket}});
+                  navigate("../home", {state: {email:email}});
                 }
             }).catch((e) => {
               console.log(e)

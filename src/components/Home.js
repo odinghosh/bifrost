@@ -2,19 +2,21 @@ import React, {useState, useEffect} from "react"
 import "bootstrap/dist/css/bootstrap.css"
 import "../css/home.css"
 import axios from 'axios'
-import io from "socket.io-client";
+import io from 'socket.io-client'
+
 import {useLocation, useNavigate} from "react-router-dom"
 
 
-function Home(props){
+function Home(){
 
     const [messages, setMessages] = useState([])
     const [textVal, setTextVal] = useState([])
 
     const {state} = useLocation()
-    const {email, socket} = state;
+    const {email} = state
 
-    var myRef = React.createRef();
+
+
 
    
 
@@ -42,18 +44,13 @@ function Home(props){
     })
 
     }
-
-    socket.on('updateMessages', () => {
-        updateMessages()
-    
-
-    })
-    
-
   
     useEffect(() => {
+        const socket = io.connect("https://bifrost-messenger.herokuapp.com/")
+        socket.on('updateMessages', () => {
+            updateMessages()
+        })
         updateMessages()       
-    
     }, [])
 
     function sendMessage(text){
