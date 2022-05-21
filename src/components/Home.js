@@ -22,7 +22,7 @@ function Home(){
     .then(function(response){
         var messagesdata = response['data']
         messagesdata.sort((a,b)=>{
-            return parseInt(a['time']) - parseInt(b['time'])
+            return parseInt(a['time'], 10) - parseInt(b['time'], 10)
         })
         console.log(messagesdata)
         setMessages(messagesdata)
@@ -35,7 +35,7 @@ function Home(){
 
     }
 
-    var endRef = React.createRef();
+   
 
     const socket = io.connect("https://bifrost-messenger.herokuapp.com/")
 
@@ -99,7 +99,7 @@ function Home(){
             })}
             </ul>
 
-            <div style={{float:'left', clear: 'both'}} ref={(el)=>{endRef = el}}></div>
+            <div style={{float:'left', clear: 'both'}} ref={(el)=>{}}></div>
         </div>
 
         <div className="textBox">
