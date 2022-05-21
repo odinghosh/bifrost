@@ -49,15 +49,17 @@ function Home(){
 
     socket.on('updateMessages', () => {
         updateMessages()
+    
+
     })
     
 
   
-    useEffect(() => {
-        updateMessages()
+    //useEffect(() => {
+      //  updateMessages()
        
     
-    }, [])
+    //}, [])
 
     function sendMessage(text){
         axios.post('https://bifrost-messenger.herokuapp.com/realms/test', {email:email, text:text})
@@ -117,7 +119,7 @@ function Home(){
         <form className="textBox" onSubmit={(e) => {
             e.preventDefault();
             sendMessage(textVal);
-            //setTextVal("")
+            setTextVal("")
 
             }}>
         <div class="input-group mb-3" >
