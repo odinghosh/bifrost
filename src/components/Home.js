@@ -30,6 +30,7 @@ function Home(){
         })
         console.log(messagesdata)
         setMessages(messagesdata)
+     
         
         
        
@@ -89,9 +90,12 @@ function Home(){
             <div className="messages">
                 <ul>
                 {messages.map((message)=> {
-                return <li ref={(e)=>{
-                    e.scrollIntoView();
-
+                return <li ref={(e) => {
+                    try{
+                        e.scrollIntoView()
+                    } catch(e) { 
+                    }
+                  
                 }}>
                     
 
@@ -108,14 +112,10 @@ function Home(){
                     </div>
                     </li>
             })}
-            </ul>
-
-        <div className="textBox">
-    
-
-        <div class="input-group mb-3" ref ={myRef}>
-         
             
+        <li >
+        <div className="textBox">
+        <div class="input-group mb-3" >
             <input onChange={(e) => {
                 setTextVal(e.target.value)
                 console.log(e.target.value)
@@ -127,9 +127,9 @@ function Home(){
          
             
         </div>
-
-
         </div>
+        </li>
+        </ul>
         </div>
         
     </div>);
