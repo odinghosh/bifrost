@@ -37,7 +37,7 @@ function Home(){
 
    
 
-    const socket = io.connect("https://bifrost-messenger.herokuapp.com/")
+    const socket = io.connect("https://bifrost-messenger.herokuapp.com/", {transports:['websocket']})
 
     socket.on('updateMessages', () => {
         updateMessages()
