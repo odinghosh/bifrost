@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import "../css/register.css"
 import {useNavigate} from "react-router-dom"
 import axios from "axios"
+import io from "socket.io-client";
 
 function Register() {
 
