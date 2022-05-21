@@ -117,7 +117,7 @@ function Home(){
         <form className="textBox" onSubmit={(e) => {
             e.preventDefault();
             sendMessage(textVal);
-            setTextVal("")
+            //setTextVal("")
 
             }}>
         <div class="input-group mb-3" >
