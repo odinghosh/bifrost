@@ -106,6 +106,7 @@ function Home(){
     
 
         <div class="input-group mb-3">
+         
             
             <input onChange={(e) => {
                 setTextVal(e.target.value)
@@ -115,6 +116,7 @@ function Home(){
                 sendMessage(textVal);
                 setTextVal("")
             }} class="btn btn-outline-dark" type="submit" id="button-addon2">Send</button>
+         
             
         </div>
 
