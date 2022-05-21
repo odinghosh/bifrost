@@ -114,20 +114,23 @@ function Home(){
             })}
             
         <li >
-        <div className="textBox">
+        <form className="textBox" onSubmit={(e) => {
+            e.preventDefault();
+            sendMessage(textVal);
+            setTextVal("")
+
+            }}>
         <div class="input-group mb-3" >
-            <input onChange={(e) => {
+            
+            <input type="text" onChange={(e) => {
                 setTextVal(e.target.value)
                 console.log(e.target.value)
-            }} type="text" value={textVal} class="form-control" placeholder="Enter a message" aria-label="Enter a message" aria-describedby="button-addon2"/>
-            <button onClick={(e)=>{
-                sendMessage(textVal);
-                setTextVal("")
-            }} class="btn btn-outline-dark" type="submit" id="button-addon2">Send</button>
+            }} value={textVal} class="form-control" placeholder="Enter a message" aria-label="Enter a message" aria-describedby="button-addon2"/>
+            <button class="btn btn-outline-dark" type="submit" id="button-addon2">Send</button>
          
             
         </div>
-        </div>
+        </form>
         </li>
         </ul>
         </div>
