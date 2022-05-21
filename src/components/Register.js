@@ -51,10 +51,16 @@ function Register() {
                 pass: pass
               }).then((e) => {
                 var uid = ""
-                uid = e['data']['uid']          
+                uid = e['data']['uid']
+
+
+            
+              
+                  const socket = io.connect("https://bifrost-messenger.herokuapp.com/")
+                
                 
                 if(uid.length > 0){
-                  navigate("../home", {state: {email:email}});
+                  navigate("../home", {state: {email:email, socket:socket}});
                 }
             }).catch((e) => {
               console.log(e)
